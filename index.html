@@ -3,6 +3,7 @@
   <head>
     <title>This or That</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.22.0/axios.min.js"></script> <!-- Include Axios from a CDN -->
   </head>
   <body>
     <div class="container">
@@ -10,10 +11,10 @@
       <h1>This   or   That</h1>
       <div class="options">
         <div class="option-box">
-          <img id="option1" class="option-image" src="image1.jpg">
+          <img id="option1" class="option-image" src="">
         </div>
         <div class="option-box">
-          <img id="option2" class="option-image" src="image2.jpg">
+          <img id="option2" class="option-image" src="">
         </div>
       </div>
       <div id="leaderboard">
@@ -21,6 +22,7 @@
         <ul id="leaderboard-list"></ul>
       </div>
     </div>
-    <script src="script.js"></script>
+  <script type="module" src="./script.js"></script>
+
   </body>
 </html>

@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "axios": "^1.3.6",
+    "express": "^4.18.2",
+    "jsdom": "^21.1.1"
+  },
+  "name": "thisorthat",
+  "description": "Project Title # ThisOrThat Choose between this or that This app will be used to compare images of 2 similar things(images). The user will be shown two seperate images and will be prompted to select one imiage of what they perfer \"This or That\". Once they select the image they will be shown the percentage of popularity for each image.",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

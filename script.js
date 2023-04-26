@@ -1,6 +1,3 @@
-
-const option1Element = document.getElementById("option1");
-const option2Element = document.getElementById("option2");
 const leaderboardElement = document.getElementById("leaderboard");
 
 const questions = [
@@ -32,10 +29,33 @@ const questions = [
 
 let currentQuestionIndex = 0;
 
-function showQuestion() {
+async function showQuestion() {
   const currentQuestion = questions[currentQuestionIndex];
-  option1Element.src = currentQuestion.option1.image;
-  option2Element.src = currentQuestion.option2.image;
+
+  try {
+    const option1Response = await axios.get(
+      "https://api.unsplash.com/photos/random?client_id=twzm8dJ0FB3-Gu6jvb6H1VJtbwDMw8DWGyYP7-dPK-I"
+    );
+    const option2Response = await axios.get(
+      "https://api.unsplash.com/photos/random?client_id=twzm8dJ0FB3-Gu6jvb6H1VJtbwDMw8DWGyYP7-dPK-I"
+    );
+
+    const option1ImageUrl = option1Response.data.urls.regular;
+    const option2ImageUrl = option2Response.data.urls.regular;
+
+    // Update image source URLs
+    questions[currentQuestionIndex].option1.image = option1ImageUrl;
+    questions[currentQuestionIndex].option2.image = option2ImageUrl;
+
+    // Update image elements in the DOM
+    document.getElementById('option1').src = option1ImageUrl;
+    document.getElementById('option2').src = option2ImageUrl;
+
+    console.log("Option 1 Image URL:", option1ImageUrl);
+    console.log("Option 2 Image URL:", option2ImageUrl);
+  } catch (error) {
+    console.error("Error retrieving images from Unsplash:", error);
+  }
 }
 
 function selectOption(optionIndex) {
@@ -45,11 +65,14 @@ function selectOption(optionIndex) {
 
   selectedOption.clickCount++;
 
+  // Update image element with click count
+  const selectedOptionElement = optionIndex === 0 ? document.getElementById('option1') : document.getElementById('option2');
+  selectedOptionElement.nextSibling.innerHTML = `${selectedOption.clickCount} clicks`;
+
   currentQuestionIndex++;
   if (currentQuestionIndex >= questions.length) {
     currentQuestionIndex = 0;
     showLeaderboard();
-    
   }
 
   showQuestion();
@@ -59,7 +82,9 @@ function showLeaderboard() {
   leaderboardElement.innerHTML = "";
   const sortedOptions = getSortedOptions();
 
-  sortedOptions.forEach((option) => {
+  // Display 3x4 grid of images in leaderboard
+  for (let i = 0; i < 12; i++) {
+    const option = sortedOptions[i];
     const optionElement = document.createElement("div");
     optionElement.classList.add("leaderboard-option");
     optionElement.innerHTML = `
@@ -67,19 +92,26 @@ function showLeaderboard() {
       <div class="leaderboard-count">${option.clickCount} clicks</div>
     `;
     leaderboardElement.appendChild(optionElement);
-  });
+  }
 }
 
-function getSortedOptions() {
-  const allOptions = [];
-  questions.forEach((question) => {
-    allOptions.push(question.option1, question.option2);
-  });
 
-  return allOptions.sort((a, b) => b.clickCount - a.clickCount);
-}
+  function getSortedOptions() {
+    const allOptions = [];
+    questions.forEach((question) => {
+      allOptions.push(question.option1, question.option2);
+    });
+  
+    return allOptions.sort((a, b) => b.clickCount - a.clickCount);
+  }
 
-option1Element.addEventListener("click", () => selectOption(0));
-option2Element.addEventListener("click", () => selectOption(1));
-
-showQuestion();
+  showQuestion();
+  
+  // Add click event handlers to image elements
+  document.getElementById('option1').addEventListener('click', function() {
+      selectOption(0);
+    });
+    
+    document.getElementById('option2').addEventListener('click', function() {
+      selectOption(1);
+    });
