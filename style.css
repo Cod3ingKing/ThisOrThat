@@ -9,6 +9,7 @@
   }
   
   .container {
+    
     position: absolute;
     top: 50%;
     left: 50%;
@@ -49,35 +50,31 @@
 
 
   #leaderboard {
-    margin-top: 50px;
-    
-    padding: 10px;
+
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 50px;
+  padding: 10px;
+  max-width: 400px;
+  max-height: 400px;
+  overflow: hidden;
+
   }
+  .leaderboard-row {
+    padding: 20px;
+  }
+  #heart{
+    width: 20px;
+    height: 40px;
+    padding-top: 15px;
+
+  }
+  
   .leaderboard-image {
     width: 50px;
     height: 50px;
     border-radius: 50%;
     object-fit: cover;
-  }
-  #leaderboard h2 {
-    margin: 0 0 10px 0;
-  }
-  
-  #leaderboard-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  #leaderboard-list li {
-    height: 50px;
-    margin-bottom: 5px;
-  }
-  
-  #leaderboard-list img {
-    width: 50px;
-    height: 50px;
-    border-radius: 3px;
   }
   
   
